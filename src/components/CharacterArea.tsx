@@ -1,10 +1,19 @@
 import characterImage from '../assets/character.png';
+import backgroundImage from '../assets/background.png';
 
-export function CharacterArea() {
+interface CharacterAreaProps {
+  isChatEnded?: boolean;
+}
+
+export function CharacterArea({ isChatEnded = false }: CharacterAreaProps) {
   return (
     <div className="character-area">
       <div className="character-image-container">
-        <img src={characterImage} alt="栞" className="character-img" />
+        <img 
+          src={isChatEnded ? backgroundImage : characterImage} 
+          alt={isChatEnded ? "背景" : "栞"} 
+          className="character-img" 
+        />
       </div>
     </div>
   );
