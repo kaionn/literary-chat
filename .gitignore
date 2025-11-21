@@ -1,0 +1,81 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Environment variables (セキュリティ重要)
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+!.env.template
+
+# API Keys and Secrets (セキュリティ重要)
+*.key
+*.pem
+*.p12
+*.pfx
+*.cer
+*.crt
+*.der
+secrets.json
+secrets.*.json
+config/secrets.*
+
+# Authentication and Credentials (セキュリティ重要)
+*.credentials
+credentials.json
+service-account*.json
+auth.json
+token.json
+*.keystore
+*.jks
+
+# SSH Keys (セキュリティ重要)
+id_rsa
+id_rsa.pub
+id_dsa
+id_dsa.pub
+id_ecdsa
+id_ecdsa.pub
+id_ed25519
+id_ed25519.pub
+
+# AWS Credentials (セキュリティ重要)
+.aws/
+aws-credentials
+credentials
+
+# Google Cloud (セキュリティ重要)
+gcloud/
+application_default_credentials.json
+
+# Database files (セキュリティ重要)
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+*.dump
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
