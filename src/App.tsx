@@ -4,11 +4,11 @@ import { CharacterArea } from './components/CharacterArea';
 import { ChatArea } from './components/ChatArea';
 
 function App() {
-  const { messages, isLoading, isSending, sendMessage } = useChat();
+  const { messages, isLoading, isSending, sendMessage, isChatEnded } = useChat();
 
   return (
     <div className="app-container">
-      <CharacterArea />
+      <CharacterArea isChatEnded={isChatEnded} />
       <ChatArea
         messages={messages}
         isLoading={isLoading}

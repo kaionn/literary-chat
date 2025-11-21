@@ -50,6 +50,11 @@ export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [turnCount, setTurnCount] = useState(0);
+  const [isChatEnded, setIsChatEnded] = useState(false);
+  // Initialize maxTurns with a random value between 10 and 30
+  const [maxTurns] = useState(() => Math.floor(Math.random() * (30 - 10 + 1)) + 10);
+
   const chatHistoryRef = useRef<ChatHistory[]>([
     {
       role: 'user',
@@ -76,7 +81,7 @@ export function useChat() {
   }, []);
 
   const sendMessage = useCallback(async (text: string) => {
-    if (isSending || !text.trim()) return;
+    if (isSending || !text.trim() || isChatEnded) return;
 
     setIsSending(true);
     
@@ -88,6 +93,30 @@ export function useChat() {
       role: 'user',
       parts: [{ text }]
     });
+
+    // Increment turn count
+    const currentTurnCount = turnCount + 1;
+    setTurnCount(currentTurnCount);
+
+    // Check if limit reached
+    if (currentTurnCount >= maxTurns) {
+      setIsLoading(true);
+      const loadingId = addMessage('……', 'ai');
+      
+      setTimeout(() => {
+        removeMessage(loadingId);
+        const farewellMessage = "……そろそろ、帰らなくてはなりません。本の世界に戻る時間ですので。また、静かな時にお会いしましょう。";
+        addMessage(farewellMessage, 'ai');
+        chatHistoryRef.current.push({
+          role: 'model',
+          parts: [{ text: farewellMessage }]
+        });
+        setIsChatEnded(true);
+        setIsLoading(false);
+        setIsSending(false);
+      }, 1500); // Small delay for natural feeling
+      return;
+    }
 
     // Show loading
     setIsLoading(true);
@@ -139,12 +168,13 @@ export function useChat() {
       setIsLoading(false);
       setIsSending(false);
     }
-  }, [isSending, addMessage, removeMessage]);
+  }, [isSending, addMessage, removeMessage, turnCount, maxTurns, isChatEnded]);
 
   return {
     messages,
     isLoading,
     isSending,
-    sendMessage
+    sendMessage,
+    isChatEnded
   };
 }

@@ -79,3 +79,4 @@ application_default_credentials.json
 *.njsproj
 *.sln
 *.sw?
+.vercel
